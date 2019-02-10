@@ -1,5 +1,5 @@
 #!/usr/bin/env python2.7
-# Version 0.0.2
+# Version 0.0.3
 # pre-versioning guess work
 
 # import items
@@ -14,20 +14,21 @@ try:
 	pin = 11
 	pin2 = 12
 
-	# buttons must be wired to 3v3 and pin in with a pull down
-	GPIO.setup(pin, GPIO.IN)
-	GPIO.setup(pin2, GPIO.IN)
+	# buttons must be wired to 3v3
+	# using builtin pull-down resistors now :)
+	GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+	GPIO.setup(pin2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 	# add event detection
 	GPIO.add_event_detect(pin, GPIO.RISING)
 	GPIO.add_event_detect(pin2, GPIO.RISING)
-	
+
 	while True:
 		if GPIO.event_detected(pin):
 			print("Pressed!")
 
 		if GPIO.event_detected(pin2):
-			print("Pressed!")
+			print("Pressed2!")
 
 except KeyboardInterrupt:
 	print("Keyboard Interrupt!")
