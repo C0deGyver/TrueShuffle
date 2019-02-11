@@ -1,6 +1,5 @@
 #!/usr/bin/env python2.7
-# Version 0.1.3
-# pre-versioning guess work
+# Version 1.0.0
 
 # import items
 import RPi.GPIO as GPIO
@@ -21,6 +20,9 @@ try:
         dislikePin = 16
         offPin = 18
 
+	# var to hold paused or playing
+	paused = False
+
         # buttons must be wired to 3v3
         # using builtin pull-down resistors
         print("Setting up pins to be pulled down to ground")
@@ -34,19 +36,25 @@ try:
         # callback functions for events
         print("Defining callbacks for the interrupts")
         def playCallBack(channel):
-                print("Play Pressed!")
+                print("Play Pressed")
 
         def pauseCallBack(channel):
-                print("Pressed 2!")
+		global paused
+		if (paused):
+			paused = False
+			print("Unpaused Pressed")
+		else:
+			paused = True
+			print("Paused Pressed")
 
         def stopCallBack(channel):
-                print("Pressed 3!")
+		print("Stop Pressed")
 
         def likeCallBack(channel):
-                print("Pressed 4!")
+                print("Like Pressed")
 
         def dislikeCallBack(channel):
-                print("Pressed 5!")
+                print(Dislike "Pressed")
 
         # add event detection
         print("Adding event detection for the buttons")
@@ -58,7 +66,7 @@ try:
 
         # getting rid of the endless loop to free the proc up
         GPIO.wait_for_edge(offPin, GPIO.RISING)
-        print("Pressed 6. Stopping program")
+        print("Off Pressed. Stopping program")
 
 finally:
         # clean gpio
@@ -70,4 +78,4 @@ finally:
         GPIO.remove_event_detect(dislikePin)
         GPIO.remove_event_detect(offPin)
         GPIO.cleanup()
-        print("TrueShuffle.py finished!")
+        print("TrueShuffle.py finished")
