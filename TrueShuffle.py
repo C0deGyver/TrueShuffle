@@ -1,5 +1,5 @@
 #!/usr/bin/env python2.7
-# Version 0.0.4
+# Version 0.1.0
 # pre-versioning guess work
 
 # import items
@@ -22,10 +22,10 @@ try:
 	GPIO.setup(pin3, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 	# callback functions for events
-	def pinFunc():
+	def pinFunc(channel):
 		print("Pressed!")
 
-	def pin2Func():
+	def pin2Func(channel):
 		print("Pressed 2!")
 
 	# add event detection
@@ -35,9 +35,6 @@ try:
 	# getting rid of the endless loop to free the proc up
 	GPIO.wait_for_edge(pin3, GPIO.RISING)
 	print("Pressed 3. Stopping program")
-
-except KeyboardInterrupt:
-	print("Keyboard Interrupt!")
 
 finally:
 	# clean gpio
