@@ -1,5 +1,5 @@
 #!/usr/bin/env python2.7
-# Version 0.1.0
+# Version 0.1.1
 # pre-versioning guess work
 
 # import items
@@ -7,38 +7,59 @@ import RPi.GPIO as GPIO
 
 
 try:
-	# Setting GPIO mode
-	GPIO.setmode(GPIO.BOARD)
+        # Setting GPIO mode
+        GPIO.setmode(GPIO.BOARD)
 
-	# setup pin number associations to buttons
-	pin = 11
-	pin2 = 12
-	pin3 = 13
+        # setup pin number associations to buttons
+        pin = 11
+        pin2 = 12
+        pin3 = 13
+        pin4 = 15
+        pin5 = 16
+        pin6 = 18
 
-	# buttons must be wired to 3v3
-	# using builtin pull-down resistors
-	GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-	GPIO.setup(pin2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-	GPIO.setup(pin3, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        # buttons must be wired to 3v3
+        # using builtin pull-down resistors
+        GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(pin2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(pin3, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(pin4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(pin5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(pin6, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-	# callback functions for events
-	def pinFunc(channel):
-		print("Pressed!")
+        # callback functions for events
+        def pinFunc(channel):
+                print("Pressed!")
 
-	def pin2Func(channel):
-		print("Pressed 2!")
+        def pin2Func(channel):
+                print("Pressed 2!")
 
-	# add event detection
-	GPIO.add_event_detect(pin, GPIO.RISING, callback=pinFunc)
-	GPIO.add_event_detect(pin2, GPIO.RISING, callback=pin2Func)
+        def pin3Func(channel):
+                print("Pressed 3!")
 
-	# getting rid of the endless loop to free the proc up
-	GPIO.wait_for_edge(pin3, GPIO.RISING)
-	print("Pressed 3. Stopping program")
+        def pin4Func(channel):
+                print("Pressed 4!")
+
+        def pin5Func(channel):
+                print("Pressed 5!")
+
+        # add event detection
+        GPIO.add_event_detect(pin, GPIO.RISING, callback=pinFunc)
+        GPIO.add_event_detect(pin2, GPIO.RISING, callback=pin2Func)
+        GPIO.add_event_detect(pin3, GPIO.RISING, callback=pin3Func)
+        GPIO.add_event_detect(pin4, GPIO.RISING, callback=pin4Func)
+        GPIO.add_event_detect(pin5, GPIO.RISING, callback=pin5Func)
+
+        # getting rid of the endless loop to free the proc up
+        GPIO.wait_for_edge(pin6, GPIO.RISING)
+        print("Pressed 6. Stopping program")
 
 finally:
-	# clean gpio
-	GPIO.remove_event_detect(pin)
-	GPIO.remove_event_detect(pin2)
-	GPIO.remove_event_detect(pin3)
-	GPIO.cleanup()
+        # clean gpio
+        GPIO.remove_event_detect(pin)
+        GPIO.remove_event_detect(pin2)
+        GPIO.remove_event_detect(pin3)
+        GPIO.remove_event_detect(pin4)
+        GPIO.remove_event_detect(pin5)
+        GPIO.remove_event_detect(pin6)
+        GPIO.cleanup()
